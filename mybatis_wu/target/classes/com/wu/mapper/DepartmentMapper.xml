@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wu.mapper.DepartmentMapper">
+    <!--public Department getDepartmentById(Integer did);-->
+    <select id="getDepartmentById" resultType="com.wu.bean.Department">
+        select * from department where id = #{did}
+    </select>
+</mapper>

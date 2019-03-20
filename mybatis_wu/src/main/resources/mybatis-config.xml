@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="mybatis.properties"></properties>
+
+    <settings>
+        <!--开启驼峰命名映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"></setting>
+    </settings>
+    <!--根据default确定环境-->
+    <environments default="dev_mysql">
+        <environment id="dev_oracle">
+            <transactionManager type="MANAGED"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/db_wu"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+        <environment id="dev_mysql">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/db_wu"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- -->
+    <databaseIdProvider type="DB_VENDOR">
+        <!-- 位不同的数据库厂商起别名 在各种增删改查语句用 databaseId="mysql"的方式来指定数据库-->
+        <property name="MySql" value="mysql"></property>
+        <property name="Oracle" value="oracle"></property>
+    </databaseIdProvider>
+    <!--
+    resource 引用类路径下的
+    url 引入网络路径与磁盘路径下的
+    class 引用接口。如果注册接口
+        1 映射文件名与接口同名，且放到接口同目录下
+        2 没有映射文件，注解方式（不建议的，还是推荐分离的Xml）
+            为了开发方便，可以使用注解
+            复杂的用xml
+    -->
+    <mappers>
+        <!--<mapper resource="EmployeeMapper.xml"/>-->
+        <!-- 批量注册 填写包名，基于注解的没问题，而xml的一样不能映射，如要映射，那么映射文件和接口放一起且名字要相同-->
+
+        <package name="com.wu.mapper"></package>
+    </mappers>
+
+
+
+</configuration>

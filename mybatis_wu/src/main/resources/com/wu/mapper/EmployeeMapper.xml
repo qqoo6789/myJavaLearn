@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wu.mapper.EmployeeMapper">
+    <select id="getEmpById" resultType="com.wu.bean.Employee">
+    select id,last_name lastName,email,gender from employee where id = #{id}
+  </select>
+
+    <!--public List<Employee> getEmpsByName(String name);-->
+    <!--特别需要注意的这里，这里是返回一个List，但是传入的resultType还是Employee-->
+    <select id="getEmpsByName" resultType="com.wu.bean.Employee">
+        select * from employee where last_name like #{name}
+    </select>
+
+    <!--public Employee getEmpByName(String name);-->
+    <select id="getEmpByName" resultType="com.wu.bean.Employee">
+        select * from employee where last_name = #{name}
+    </select>
+
+    <!--public Map<String,Object> getEmpMapById(Integer id);-->
+    <select id="getEmpMapById" resultType="map">
+        select * from employee where id = #{id}
+    </select>
+
+    <!-- public Map<Integer,Employee> getEmpsMapByName(String name);-->
+    <!--非常注意这里要返回Map，但是resultType依然是填入employee对象-->
+    <select id="getEmpsMapByName" resultType="com.wu.bean.Employee">
+        select * from employee where last_name like #{name}
+    </select>
+
+    <!--getEmpsMapByName1-->
+    <select id="getEmpsMapByName1" resultType="com.wu.bean.Employee">
+        select * from employee where last_name like #{name}
+    </select>
+
+
+    <!--
+        public class Employee {
+            private Integer id;
+            private String lastName;
+            private String email;
+            private String gender;
+            private Department department;
+    -->
+    <!-- 数据库 eid, last_name, email, gender, departmentId, departmentName-->
+    <!--public Employee getEmployeeByIdWhitLeftJoinDepartment(Integer eid);-->
+    <resultMap id="emp" type="com.wu.bean.Employee">
+        <id column="eid" property="id"></id>
+        <result column="last_name" property="lastName"></result>
+        <result column="email" property="email"></result>
+        <result column="gender" property="gender"></result>
+        <result column="departmentId" property="department.id"></result>
+        <result column="departmentName" property="department.name"></result>
+    </resultMap>
+    <select id="getEmployeeByIdWhitLeftJoinDepartment" resultMap="emp">
+        select e.id eid,e.last_name,e.email,e.gender,d.id departmentId,d.name departmentName
+        from employee e left join department d on e.departmentId = d.id
+        where e.id = #{eid}
+    </select>
+    <!--
+        public class Employee {
+            private Integer id;
+            private String lastName;
+            private String email;
+            private String gender;
+            private Department department;
+
+        public class Department {
+            private Integer id;
+            private String name;
+    -->
+    <!-- 数据库 eid, last_name, email, gender, departmentId, departmentName-->
+    <resultMap id="empassociation" type="com.wu.bean.Employee">
+        <id column="eid" property="id"></id>
+        <result column="last_name" property="lastName"></result>
+        <result column="email" property="email"></result>
+        <result column="gender" property="gender"></result>
+        <association property="department" javaType="com.wu.bean.Department">
+            <id column="departmentId" property="id"></id>
+            <id column="departmentName" property="name"></id>
+        </association>
+
+    </resultMap>
+    <select id="getEmployeeByIdWhitLeftJoinDepartmentAssociation" resultMap="empassociation">
+        select e.id eid,e.last_name,e.email,e.gender,d.id departmentId,d.name departmentName
+        from employee e left join department d on e.departmentId = d.id
+        where e.id = #{eid}
+    </select>
+
+
+    <!--public Employee getEmployeeByIdWhitLeftJoinDepartmentAssocaitionSelect(Integer eid);-->
+    <resultMap id="empassociationselect" type="com.wu.bean.Employee">
+        <id column="eid" property="id"></id>
+        <result column="last_name" property="lastName"></result>
+        <result column="email" property="email"></result>
+        <result column="gender" property="gender"></result>
+        <association property="department"
+                     column="departmentId"
+                     select="com.wu.mapper.DepartmentMapper.getDepartmentById">
+        </association>
+
+    </resultMap>
+    <select id="getEmployeeByIdWhitLeftJoinDepartmentAssocaitionSelect" resultMap="empassociationselect">
+        select id eid,last_name,email,gender,departmentId
+        from employee where id = #{eid}
+    </select>
+
+
+
+</mapper>
