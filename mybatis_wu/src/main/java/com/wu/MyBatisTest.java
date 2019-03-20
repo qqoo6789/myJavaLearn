@@ -114,5 +114,6 @@ public class MyBatisTest {
         System.out.println(employee.getDepartment());
         //Employee{id=1, lastName='wuyiming', email='dddd@123.com', gender='1', department=Department{id=1, name='开发部'}}
 
+        //test git
     }
 }
