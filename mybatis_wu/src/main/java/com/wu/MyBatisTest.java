@@ -103,17 +103,28 @@ public class MyBatisTest {
         //System.out.println(employee);
         //Employee{id=1, lastName='wuyiming', email='dddd@123.com', gender='1', department=Department{id=1, name='开发部'}}
 
-        //DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
+        DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
 
         //Department department = departmentMapper.getDepartmentById(1);
         //System.out.println(department);
         //Department{id=1, name='开发部'}
 
-        Employee employee = mapper.getEmployeeByIdWhitLeftJoinDepartmentAssocaitionSelect(1);
-        System.out.println(employee.getLastName());
-        System.out.println(employee.getDepartment());
+//        Employee employee = mapper.getEmployeeByIdWhitLeftJoinDepartmentAssocaitionSelect(1);
+//        System.out.println(employee.getLastName());
+//        System.out.println(employee.getDepartment());
         //Employee{id=1, lastName='wuyiming', email='dddd@123.com', gender='1', department=Department{id=1, name='开发部'}}
 
         //test git
+
+        Department department = departmentMapper.getDepartmentAndEmployeeById(1);
+        System.out.println(department);
+//        Department{id=1, name='开发部',
+//        emps=[
+//              Employee{id=1, lastName='wuyiming', email='dddd@123.com', gender='null', department=null},
+//              Employee{id=2, lastName='gaozaoshun', email='gao@11.com', gender='null', department=null},
+//              Employee{id=5, lastName='wuyiming3', email='test@dxx.com', gender='null', department=null}
+//        ]}
+
+
     }
 }

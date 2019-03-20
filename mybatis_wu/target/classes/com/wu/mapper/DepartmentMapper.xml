@@ -7,4 +7,29 @@
     <select id="getDepartmentById" resultType="com.wu.bean.Department">
         select * from department where id = #{did}
     </select>
+    <!--
+    public class Department {
+        private Integer id;
+        private String name;
+        private List<Employee> emps;
+    -->
+    <!-- public Department getDepartmentAndEmployeeById(Integer id);-->
+    <!--deptName, deptId, empName, empEmail, empId, id-->
+    <resultMap id="dept" type="com.wu.bean.Department">
+        <id column="deptId" property="id"></id>
+        <result column="deptName" property="name"></result>
+        <collection property="emps" ofType="com.wu.bean.Employee">
+            <id column="empId" property="id"></id>
+            <result column="empEmail" property="email"></result>
+            <result column="empName" property="lastName"></result>
+
+        </collection>
+
+    </resultMap>
+    <select id="getDepartmentAndEmployeeById" resultMap="dept">
+        select d.name deptName,d.id deptId,e.last_name empName, e.email empEmail,e.id empId
+        from department d right join employee e
+        on d.id = e.departmentId
+        where d.id  = #{did};
+    </select>
 </mapper>
