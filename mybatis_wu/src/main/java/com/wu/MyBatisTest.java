@@ -116,14 +116,24 @@ public class MyBatisTest {
 
         //test git
 
-        Department department = departmentMapper.getDepartmentAndEmployeeById(1);
-        System.out.println(department);
+//        Department department = departmentMapper.getDepartmentAndEmployeeById(1);
+//        System.out.println(department);
 //        Department{id=1, name='开发部',
 //        emps=[
 //              Employee{id=1, lastName='wuyiming', email='dddd@123.com', gender='null', department=null},
 //              Employee{id=2, lastName='gaozaoshun', email='gao@11.com', gender='null', department=null},
 //              Employee{id=5, lastName='wuyiming3', email='test@dxx.com', gender='null', department=null}
 //        ]}
+
+
+        Department department = departmentMapper.getDepartmentAndEmployeeByIdLazy(1);
+        System.out.println(department);
+        //Department{id=1, name='开发部',
+        // emps=[
+        //  Employee{id=1, lastName='wuyiming', email='dddd@123.com', gender='1', department=null},
+        //  Employee{id=2, lastName='gaozaoshun', email='gao@11.com', gender='0', department=null},
+        //  Employee{id=5, lastName='wuyiming3', email='test@dxx.com', gender='1', department=null}
+        //  ]}
 
 
     }

@@ -32,4 +32,21 @@
         on d.id = e.departmentId
         where d.id  = #{did};
     </select>
+
+
+    <!--    public Department getDepartmentAndEmployeeByIdLazy(Integer did);-->
+    <!--deptId, deptName, id-->
+    <resultMap id="empLazy" type="com.wu.bean.Department">
+        <id column="deptId" property="id"></id>
+        <result column="deptName" property="name"></result>
+        <!-- fetchType="lazy"-->
+        <collection property="emps"
+                    column="deptId"
+                    select="com.wu.mapper.EmployeeMapper.getEmpsByDeptId">
+        </collection>
+    </resultMap>
+
+    <select id="getDepartmentAndEmployeeByIdLazy" resultMap="empLazy" >
+        SELECT id deptId,name deptName FROM db_wu.department where id = #{did};
+    </select>
 </mapper>

@@ -107,5 +107,11 @@
     </select>
 
 
+    <!--public List<Employee> getEmpsByDeptId(Integer did);-->
+    <!--empId, empName, empEmail, deptGender, id-->
+    <select id="getEmpsByDeptId" resultType="com.wu.bean.Employee">
+        select id,last_name lastName,email,gender
+        from employee where departmentId = #{did};
+    </select>
 
 </mapper>

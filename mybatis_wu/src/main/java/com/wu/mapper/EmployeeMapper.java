@@ -11,6 +11,7 @@ public interface EmployeeMapper {
     public Employee getEmpById(Integer id);
     public List<Employee> getEmpsByName(String name);
     public Employee getEmpByName(String name);
+    public List<Employee> getEmpsByDeptId(Integer did);
     public Map<String,Object> getEmpMapById(Integer id);
     @MapKey("id")
     public Map<Integer,Employee> getEmpsMapByName(String name);

@@ -8,7 +8,9 @@
     <settings>
         <!--开启驼峰命名映射-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--开启懒加载，这两行一个不能少-->
         <setting name="lazyLoadingEnabled" value="true"></setting>
+        <setting name="aggressiveLazyLoading" value="false"></setting>
     </settings>
     <!--根据default确定环境-->
     <environments default="dev_mysql">
